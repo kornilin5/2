@@ -87,6 +87,7 @@ class Bot:
 
             if message not in commands_list:
                 return
+            
             if not self.user_manager.exists(user_id):
                 self.user_manager.add(user_id)
 
