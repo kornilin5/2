@@ -92,9 +92,9 @@ class Bot:
                 self.user_blocker.remove_ban_and_reset_attributes(
                     user_id, self.user_manager.fetch(user_id))
 
-            if self.spam_checker.detect_spam(self.user_manager.fetch(user_id)):
-                self.user_blocker.block_user(user_id)
-                return
+                if self.spam_checker.detect_spam(self.user_manager.fetch(user_id)):
+                    self.user_blocker.block_user(user_id)
+                    return
             self.handler_user_message(user_id, message, commands_list)
 
     def run(self):
