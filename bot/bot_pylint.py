@@ -95,7 +95,7 @@ class Bot:
                 if self.spam_checker.detect_spam(self.user_manager.fetch(user_id)):
                     self.user_blocker.block_user(user_id)
                     return
-            self.handler_user_message(user_id, message, commands_list)
+                self.handler_user_message(user_id, message, commands_list)
 
     def run(self):
         """
