@@ -5,7 +5,6 @@
 import time
 import traceback
 
-
 import vk_api
 from vk_api.longpoll import VkEventType, VkLongPoll
 from vk_api.utils import get_random_id
@@ -85,6 +84,9 @@ class Bot:
         if event.type == VkEventType.MESSAGE_NEW:
             user_id = event.user_id
             message = event.text.lower()
+
+            if message not in commands_list:
+                return
             if not self.user_manager.exists(user_id):
                 self.user_manager.add(user_id)
 
@@ -92,7 +94,8 @@ class Bot:
                 self.user_blocker.remove_ban_and_reset_attributes(
                     user_id, self.user_manager.fetch(user_id))
 
-                if self.spam_checker.detect_spam(self.user_manager.fetch(user_id)):
+                if self.spam_checker.detect_spam(
+                        self.user_manager.fetch(user_id)):
                     self.user_blocker.block_user(user_id)
                     return
                 self.handler_user_message(user_id, message, commands_list)
